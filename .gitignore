@@ -1,0 +1,32 @@
+# OS noise
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Local caches
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+node_modules/
+
+# Local environment files
+.env
+.env.*
+!.env.example
+
+# Temporary outputs
+05_tmp/**
+!05_tmp/.gitkeep
+01_tasks/**/04_tmp/**
+!01_tasks/**/04_tmp/.gitkeep
+01_tasks/**/03_logs/90_tool-state/**
+!01_tasks/**/03_logs/90_tool-state/.gitkeep
+
+# Large or private raw files can be kept locally by convention.
+# Remove these patterns if your project intentionally tracks them.
+*.sqlite
+*.db
+*.log
+
