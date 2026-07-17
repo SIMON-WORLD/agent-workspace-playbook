@@ -23,6 +23,22 @@ This is a local agent workspace. Codex should keep all task files and outputs in
   - `03_logs/`
   - `04_tmp/`
 
+## Conversation Title Rule
+
+- Codex sidebar titles should use "stars + short task name" whenever possible. Do not default to long first-message text or full date-time titles.
+- Use stars to express importance and task level:
+  - `⭐`: quick check, lightweight experiment, one-off test.
+  - `⭐⭐`: normal test task.
+  - `⭐⭐⭐`: important project task, reusable capability development, formal workflow test.
+  - `⭐⭐⭐⭐`: workspace rules, template work, system-level cleanup, migration.
+  - `⭐⭐⭐⭐⭐`: long-running mainline, core production workflow, highest-priority project.
+- Recommended title format: `⭐⭐⭐short-task-name`, for example `⭐⭐⭐stata-skill`, `⭐⭐⭐⭐project-workflow`, `⭐officecli-smoke-test`.
+- If the user provides `会话标题：...` or `Conversation title: ...` in the first message, prefer that title.
+- If the current agent environment provides a thread rename tool and the current thread id is available, proactively rename the sidebar title to the user-provided or rule-derived title.
+- If the current thread id cannot be located, do not write to global config just to rename the title. Tell the user they can manually rename it, then continue following the workspace file rules.
+- Sidebar titles are only for human recognition. Task folders must still use `01_tasks/YYYY-MM-DD-HHMM-short-task-name/`.
+- Continued work under the same sidebar title should reuse the same task folder unless the user clearly starts a different task.
+
 ## Task Subfolders
 
 - `prompt.md`: original request, constraints, expected output.
