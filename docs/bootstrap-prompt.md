@@ -51,6 +51,8 @@ docs/
 
 请写入 AGENTS.md 和 CLAUDE.md 的核心规则：
 - 每个新任务使用 `01_tasks/YYYY-MM-DD-HHMM-short-task-name/`。
+- `YYYY-MM-DD-HHMM` 必须使用当前本机日期时间，不要使用 `0000` 或 `HHMM` 这类占位符；如果当前时间不确定，先运行本地时间命令确认。
+- `short-task-name` 使用简短英文 slug，左侧会话标题可以使用中文。
 - 同一主题继续时复用同一个任务目录，不要重复创建时间戳目录。
 - 每个任务目录包含 `prompt.md`、`notes.md`、`01_assets/`、`02_output/`、`03_logs/`、`04_tmp/`。
 - 会话标题尽量使用“星标 + 短任务名”，例如 `⭐⭐⭐stata-skill`、`⭐⭐⭐⭐project-workflow`、`⭐officecli-smoke-test`。

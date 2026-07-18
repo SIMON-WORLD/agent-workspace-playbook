@@ -67,6 +67,8 @@ git clone <repo-url> my-agent-workspace
 01_tasks/YYYY-MM-DD-HHMM-short-task-name/
 ```
 
+其中 `YYYY-MM-DD-HHMM` 必须使用当前本机日期时间，不要使用 `0000` 或 `HHMM` 这类占位符；除非任务确实在零点开始。`short-task-name` 建议使用简短英文 slug，左侧会话标题可以使用中文。
+
 每个任务目录包含：
 
 ```text

@@ -13,6 +13,8 @@ This is a local agent workspace. Claude should keep all task files and outputs i
 ## Task Folder Rule
 
 - Each new task should use: `01_tasks/YYYY-MM-DD-HHMM-short-task-name/`.
+- `YYYY-MM-DD-HHMM` must use the current local date and time. Do not use `0000`, `HHMM`, or other placeholders unless the task actually starts at midnight. If the current time is unclear, run a local time command first.
+- `short-task-name` should be a short English slug with hyphens. Sidebar titles may use Chinese.
 - Do not create a new timestamp folder just because the user continues the same conversation, restarts the agent, asks for verification, asks for fixes, or adds documentation.
 - Long-running projects should use one main task folder or an epic index.
 - Each task folder should contain:
@@ -83,4 +85,3 @@ At the end of each task, report:
 - Files not handled
 - External path risk
 - Verification results
-
