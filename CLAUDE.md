@@ -10,6 +10,15 @@ This is a local agent workspace. Claude should keep all task files and outputs i
 - Do not run global install commands such as `npm install -g`, global `pip install`, PATH edits, system environment changes, or user-level agent configuration changes without explicit confirmation.
 - If a path, permission, or target directory is unclear, stop and ask the user.
 
+## User-Provided External Input Files
+
+- If the user explicitly uploads, drops, pastes, or provides the full path to a specific external file, the agent may read that single file as task input in read-only mode.
+- After reading it, copy the file into the current task folder under `01_assets/01_input/` and continue working from the project-local copy.
+- Do not modify, move, or delete the external source file. Do not scan the external parent directory or bulk-read sibling files unless the user explicitly confirms.
+- Do not write outputs, logs, caches, or intermediate files back to the external path. All generated files still belong inside the current task folder.
+- If the file may contain sensitive information, the path is unclear, permissions are uncertain, or the task requires reading multiple external files/directories, ask the user first.
+- If the runtime cannot directly read the external file, explain why and ask the user to upload/drop it again or approve copying it into the current task folder.
+
 ## Task Folder Rule
 
 - Each new task should use: `01_tasks/YYYY-MM-DD-HHMM-short-task-name/`.
