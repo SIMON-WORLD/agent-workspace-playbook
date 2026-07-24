@@ -111,6 +111,8 @@ def check_content(root: pathlib.Path) -> list[str]:
                 if pattern.search(line):
                     findings.append(f"{rel}:{index}: possible secret pattern")
             for pattern in LOCAL_PATH_PATTERNS:
+                if rel == "scripts/check_repository_hygiene.py" and "re.compile" in line:
+                    continue
                 if pattern.search(line) and not is_allowed_local_path_line(line):
                     findings.append(f"{rel}:{index}: local absolute path")
     return findings
