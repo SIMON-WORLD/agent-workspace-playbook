@@ -42,6 +42,19 @@ python -m unittest discover -s tests
 
 Codex 和 Claude 只有在各自产生真实提交并进入默认分支后，才可能成为 GitHub Contributors。不要伪造 Agent 身份或随意添加未确认的 `Co-Authored-By`。
 
+## 交付物入口
+
+每次任务结束时，Agent 不应只说“生成了哪些文件”，还应该告诉用户“从哪里直接打开”。关键产物必须给可点击入口。
+
+常见入口包括：
+
+- GitHub PR、Issue、Actions、Release、仓库或部署页面 URL。
+- 本地报告、HTML、图片、PDF、PPTX、脚本和导出文件的绝对路径链接。
+- 本地服务的 URL，例如 `http://127.0.0.1:3000`。
+- 完整文件清单所在的 `notes.md`、`TASKS.md` 或审计报告。
+
+如果产物很多，只列最重要的入口，避免把最终汇报变成文件瀑布。
+
 ## 目录结构
 
 ```text

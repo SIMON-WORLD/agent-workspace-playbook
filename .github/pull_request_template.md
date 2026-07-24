@@ -14,6 +14,15 @@ Closes #
 
 -
 
+## Deliverable Links
+
+Add direct links for reviewers:
+
+- PR:
+- Issue:
+- Key local/repository files:
+- Reports or previews:
+
 ## Allowed Scope
 
 List the issue-approved files/directories changed by this PR:

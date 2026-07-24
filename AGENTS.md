@@ -105,9 +105,20 @@ This is a local agent workspace. Codex should keep all task files and outputs in
 
 At the end of each task, report:
 
+- Directly openable deliverable links
 - Files created
 - Files modified
 - Files moved
 - Files not handled
 - External path risk
 - Verification results
+
+## Deliverable Links
+
+- At the end of each task, provide directly openable or copyable entry points for the user.
+- If the task creates or updates a GitHub Issue, PR, Release, Actions run, repository page, deployment, or hosted page, include the URL.
+- If the task creates or updates important local files, include clickable absolute path links. Do not provide only relative paths or bare filenames for key deliverables.
+- If the task creates HTML pages, images, PDFs, slide decks, reports, scripts, exports, or generated assets, group the entry points by type and explain where to view or open them.
+- If there are many outputs, list only the most important entry points and point to the full manifest in `notes.md`, `TASKS.md`, or a report file.
+- If a local dev server was started, include the local URL. If it was stopped, say so.
+- If visual artifacts were generated and can be displayed, show them in the final report or provide clickable absolute paths.
