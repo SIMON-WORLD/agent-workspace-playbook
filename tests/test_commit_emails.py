@@ -6,6 +6,7 @@ from scripts import check_commit_emails
 class CommitEmailTests(unittest.TestCase):
     def test_allowed_bot_and_agent_emails(self):
         self.assertTrue(check_commit_emails.is_allowed("project-test-bot@example.com"))
+        self.assertTrue(check_commit_emails.is_allowed("noreply@github.com"))
         self.assertTrue(check_commit_emails.is_allowed("noreply@openai.com"))
         self.assertTrue(check_commit_emails.is_allowed("noreply@anthropic.com"))
 

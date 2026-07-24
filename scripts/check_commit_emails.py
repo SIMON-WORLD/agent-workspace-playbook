@@ -10,6 +10,7 @@ import sys
 
 ALLOWED_EXACT = {
     "project-test-bot@example.com",
+    "noreply@github.com",
     "noreply@openai.com",
     "noreply@anthropic.com",
 }
