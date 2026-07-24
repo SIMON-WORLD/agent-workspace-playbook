@@ -22,6 +22,26 @@ Agent 不应修改、移动、删除外部原文件，也不应扫描外部父�
 - 待归类、归档、临时文件区
 - 无需 clone 也能让 Agent 创建结构的 `docs/bootstrap-prompt.md`
 
+## GitHub Agent 协作
+
+本仓库支持 Codex、Claude 或其他 Agent 通过 GitHub 进行可审计协作。推荐流程：
+
+```text
+Issue -> branch -> PR -> CI -> review -> merge
+```
+
+新增 Agent 任务时，优先使用 `.github/ISSUE_TEMPLATE/agent-task.yml` 说明 agent、目标、允许修改范围、约束和验收标准。PR 应使用 `.github/pull_request_template.md` 记录关联 issue、验证结果、隐私检查和 contributor attribution 情况。
+
+CI 会运行：
+
+```powershell
+python scripts/check_repository_hygiene.py
+python scripts/check_commit_emails.py
+python -m unittest discover -s tests
+```
+
+Codex 和 Claude 只有在各自产生真实提交并进入默认分支后，才可能成为 GitHub Contributors。不要伪造 Agent 身份或随意添加未确认的 `Co-Authored-By`。
+
 ## 目录结构
 
 ```text
@@ -31,6 +51,18 @@ agent-workspace-template/
 ├─ README.md
 ├─ TASKS.md
 ├─ .gitignore
+├─ .github/
+│  ├─ ISSUE_TEMPLATE/
+│  │  └─ agent-task.yml
+│  ├─ pull_request_template.md
+│  └─ workflows/
+│     └─ tests.yml
+├─ scripts/
+│  ├─ check_commit_emails.py
+│  └─ check_repository_hygiene.py
+├─ tests/
+│  ├─ test_commit_emails.py
+│  └─ test_repository_hygiene.py
 ├─ 01_tasks/
 │  └─ 00_template/
 │     ├─ prompt.md

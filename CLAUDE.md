@@ -77,6 +77,21 @@ This is a local agent workspace. Claude should keep all task files and outputs i
 - Do not modify global `.claude`, `.codex`, or `.agents` directories unless the user explicitly confirms.
 - Do not create or modify MCP configuration without first explaining the reason, content, commands, permissions, and risks.
 
+## GitHub Agent Workflow
+
+- For repository changes intended to reach GitHub, use an auditable Issue -> branch -> PR -> CI -> review -> merge flow.
+- Start from a GitHub Issue that states the agent, goal, allowed files/directories, constraints, and acceptance criteria.
+- Create a task branch for agent work; do not commit directly to `main`.
+- Keep PR changes within the issue-approved scope. If the scope changes, update the issue or ask the maintainer before editing more files.
+- Run repository hygiene checks, commit email checks, and tests before asking for review:
+  - `python scripts/check_repository_hygiene.py`
+  - `python scripts/check_commit_emails.py`
+  - `python -m unittest discover -s tests`
+- Do not commit secrets, credentials, private data, personal email addresses, or local absolute paths.
+- Do not claim Codex or Claude contributor attribution unless there are real agent-authored commits intended to enter the default branch.
+- `Co-Authored-By` trailers must use maintainer-approved identities. Do not invent agent identities.
+- Branch protection and required checks must be configured by a maintainer or only after explicit maintainer confirmation.
+
 ## Scripts
 
 - Maintainable first-party scripts should use: `NN_verb_object_context.ext`.
