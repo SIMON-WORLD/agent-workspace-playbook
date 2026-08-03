@@ -1,10 +1,24 @@
-# Agent Workspace Template
+# agent-workspace-playbook
 
-这是一个面向 Codex、Claude 和其他本地 Agent 的轻量工作区模板。
+A local workspace standard for multi-agent experiments and workflows.
 
-目标很简单：让每一次 Agent 任务都留在本地项目内，目录清楚、过程可追踪、结果可迁移。
+一个用于管理多 Agent 实验与工作流的本地工作空间标准。
 
-除非用户明确要求其他语言，本模板默认要求 Agent 使用中文回复、中文任务记录和中文说明文档。
+本 Playbook 提供一套结构化方法，用于管理 AI Agent 驱动的本地工作环境：保持 Workspace 结构清晰、管理实验过程、保存重要上下文、复用有效 Workflow，并在不同设备之间保持一致。
+
+除非用户明确要求其他语言，本工作区默认要求 Agent 使用中文回复、中文任务记录和中文说明文档。
+
+## 定位
+
+本项目不是一个新的 Agent 框架、自动化 Agent 平台或简单模板仓库，而是一套长期管理 AI Agent 工作环境的实践规范。
+
+它解决的问题：
+
+- Agent 会生成大量中间文件和临时产物，需要稳定归位。
+- 多个 Agent 可能同时参与同一个项目，需要一致的规则。
+- Prompt、规则、实验记录和输出需要长期保存。
+- 不同电脑之间需要保持一致的工作方式。
+- 用户不断测试新的模型、工具、MCP、Skill 和 Workflow，需要一个稳定实验环境。
 
 ## 外部输入文件
 
@@ -12,7 +26,7 @@
 
 Agent 不应修改、移动、删除外部原文件，也不应扫描外部父目录或批量读取同目录其他文件。若路径不清楚、权限不确定、文件可能敏感，或需要读取一整个外部目录，必须先向用户确认。
 
-## 这个模板提供什么
+## 这个 Playbook 提供什么
 
 - Codex 项目规则文件：`AGENTS.md`
 - Claude 项目规则文件：`CLAUDE.md`
@@ -59,7 +73,7 @@ Codex 和 Claude 只有在各自产生真实提交并进入默认分支后，才
 ## 目录结构
 
 ```text
-agent-workspace-template/
+agent-workspace-playbook/
 ├─ AGENTS.md
 ├─ CLAUDE.md
 ├─ README.md
