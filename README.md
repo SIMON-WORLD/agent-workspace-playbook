@@ -28,7 +28,7 @@ Agent 不应修改、移动、删除外部原文件，也不应扫描外部父�
 
 ## 这个 Playbook 提供什么
 
-- 按 Agent 类型使用的项目规则文件：Codex 使用 `AGENTS.md`，Claude 使用 `CLAUDE.md`；使用哪个 Agent 就保留哪个文件，不强制同时放置两份。
+- 按 Agent 类型使用的项目规则文件：Codex 使用 `AGENTS.md`，Claude 使用 `CLAUDE.md`；单 Agent 工作区只保留当前 Agent 的文件，多 Agent 共用工作区同时保留两份。
 - 每个任务一个独立目录：`01_tasks/`
 - 任务内清晰编号：素材、产出、日志、临时文件各归其位
 - 跨任务复用资料区：`02_shared/`
@@ -37,7 +37,7 @@ Agent 不应修改、移动、删除外部原文件，也不应扫描外部父�
 
 ## 人类导航（可选）
 
-任务目录名以时间戳开头，Agent 很好用，但长期使用后人会越来越难浏览。建议长期工作区在根目录增加 `INDEX.md`，只记录主题、当前任务路径、状态和常用入口，不改变 `01_tasks/` 结构。`TASKS.md` 继续作为 Agent 视角的任务登记。
+任务目录名以时间戳开头，Agent 很好用，但长期使用后人会越来越难浏览。长期工作区在根目录提供一份 `INDEX.md` 供人快速浏览：主题、当前任务、状态和常用入口。`INDEX.md` 由 `python scripts/build_index.py` 自动生成，不需要人工维护；Agent 更新 `TASKS.md` 后运行该脚本即可。`TASKS.md` 继续作为 Agent 视角的任务登记；`INDEX.md` 不改变 `01_tasks/` 结构。
 
 ## Task vs Project Boundary
 
@@ -59,6 +59,7 @@ CI 会运行：
 python scripts/check_repository_hygiene.py
 python scripts/check_commit_emails.py
 python scripts/check_task_structure.py
+python scripts/build_index.py --check
 python -m unittest discover -s tests
 ```
 
@@ -85,7 +86,7 @@ agent-workspace-playbook/
 ├─ CLAUDE.md                # 模板仓库保留两份；实际工作区按当前 Agent 保留一份
 ├─ README.md
 ├─ TASKS.md
-├─ INDEX.md                 # 可选，人类导航
+├─ INDEX.md                 # 可选，由 scripts/build_index.py 自动生成
 ├─ .gitignore
 ├─ .github/
 │  ├─ ISSUE_TEMPLATE/
@@ -94,10 +95,12 @@ agent-workspace-playbook/
 │  └─ workflows/
 │     └─ tests.yml
 ├─ scripts/
+│  ├─ build_index.py
 │  ├─ check_commit_emails.py
 │  ├─ check_repository_hygiene.py
 │  └─ check_task_structure.py
 ├─ tests/
+│  ├─ test_build_index.py
 │  ├─ test_commit_emails.py
 │  ├─ test_repository_hygiene.py
 │  └─ test_check_task_structure.py

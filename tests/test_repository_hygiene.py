@@ -10,6 +10,8 @@ class RepositoryHygieneTests(unittest.TestCase):
         self.assertIn(".github/workflows/tests.yml", check_repository_hygiene.REQUIRED_FILES)
         self.assertIn("scripts/check_commit_emails.py", check_repository_hygiene.REQUIRED_FILES)
         self.assertIn("tests/test_repository_hygiene.py", check_repository_hygiene.REQUIRED_FILES)
+        self.assertIn("scripts/build_index.py", check_repository_hygiene.REQUIRED_FILES)
+        self.assertIn("tests/test_build_index.py", check_repository_hygiene.REQUIRED_FILES)
 
     def test_local_path_examples_are_allowed_only_with_context(self):
         local_path = "C:" + "\\Users\\name\\Desktop\\report.md"
