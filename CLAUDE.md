@@ -51,19 +51,25 @@ This is a local agent workspace. Claude should keep all task files and outputs i
 
 ## Task Subfolders
 
-- `prompt.md`: original request, constraints, expected output.
-- `notes.md`: decisions, process notes, file changes, verification, follow-up.
-- `01_assets/01_input/`: user-provided files and copied-in external inputs.
-- `01_assets/02_reference/`: reference material and read-only context.
-- `01_assets/03_working/`: intermediate working assets.
-- `02_output/01_final/`: final deliverables.
-- `02_output/02_reports/`: reports, audits, explanations.
-- `02_output/03_exports/`: exported files.
-- `02_output/90_working/`: draft or in-progress outputs.
-- `03_logs/01_runs/`: command logs and verification logs.
-- `03_logs/90_tool-state/`: tool state, caches, hidden state folders.
-- `04_tmp/`: task-local temporary files.
+- Each task starts with only 6 entries: `prompt.md`, `notes.md`, `01_assets/`, `02_output/`, `03_logs/`, `04_tmp/`.
+- Create the following subfolders on demand only; do not pre-create empty folders:
+  - `01_assets/01_input/`: user-provided files and copied-in external inputs.
+  - `01_assets/02_reference/`: reference material and read-only context.
+  - `01_assets/03_working/`: intermediate working assets.
+  - `02_output/01_final/`: final deliverables.
+  - `02_output/02_reports/`: reports, audits, explanations.
+  - `02_output/03_exports/`: exported files.
+  - `02_output/90_working/`: draft or in-progress outputs.
+  - `03_logs/01_runs/`: command logs and verification logs.
+  - `03_logs/90_tool-state/`: tool state, caches, hidden state folders.
+  - `04_tmp/`: task-local temporary files.
 
+## Task Structure Validation
+
+- Task roots must contain only `prompt.md`, `notes.md`, `01_assets/`, `02_output/`, `03_logs/`, `04_tmp/`.
+- Do not create legacy top-level folders such as `output/`, `90_archive/`, `.venv/`, `.superpowers/`, `.worktrees/`, or `$task`.
+- After creating or reorganizing tasks, run `python scripts/check_task_structure.py`.
+- A PowerShell workspace-local equivalent is `02_shared/02_scripts/01_active/01_check_task_structure.ps1`.
 ## Shared Materials
 
 - Put reusable documents in `02_shared/01_docs/`.
@@ -77,6 +83,22 @@ This is a local agent workspace. Claude should keep all task files and outputs i
 - Do not modify global `.claude`, `.codex`, or `.agents` directories unless the user explicitly confirms.
 - Do not create or modify MCP configuration without first explaining the reason, content, commands, permissions, and risks.
 
+## GitHub Agent Workflow
+
+- For repository changes intended to reach GitHub, use an auditable Issue -> branch -> PR -> CI -> review -> merge flow.
+- Start from a GitHub Issue that states the agent, goal, allowed files/directories, constraints, and acceptance criteria.
+- Create a task branch for agent work; do not commit directly to `main`.
+- Keep PR changes within the issue-approved scope. If the scope changes, update the issue or ask the maintainer before editing more files.
+- Run repository hygiene, commit email, task structure, and tests before asking for review:
+  - `python scripts/check_repository_hygiene.py`
+  - `python scripts/check_commit_emails.py`
+  - `python scripts/check_task_structure.py`
+  - `python -m unittest discover -s tests`
+- Do not commit secrets, credentials, private data, personal email addresses, or local absolute paths.
+- Do not claim Codex or Claude contributor attribution unless there are real agent-authored commits intended to enter the default branch.
+- `Co-Authored-By` trailers must use maintainer-approved identities. Do not invent agent identities.
+- Branch protection and required checks must be configured by a maintainer or only after explicit maintainer confirmation.
+
 ## Scripts
 
 - Maintainable first-party scripts should use: `NN_verb_object_context.ext`.
@@ -88,9 +110,20 @@ This is a local agent workspace. Claude should keep all task files and outputs i
 
 At the end of each task, report:
 
+- Directly openable deliverable links
 - Files created
 - Files modified
 - Files moved
 - Files not handled
 - External path risk
 - Verification results
+
+## Deliverable Links
+
+- At the end of each task, provide directly openable or copyable entry points for the user.
+- If the task creates or updates a GitHub Issue, PR, Release, Actions run, repository page, deployment, or hosted page, include the URL.
+- If the task creates or updates important local files, include clickable absolute path links. Do not provide only relative paths or bare filenames for key deliverables.
+- If the task creates HTML pages, images, PDFs, slide decks, reports, scripts, exports, or generated assets, group the entry points by type and explain where to view or open them.
+- If there are many outputs, list only the most important entry points and point to the full manifest in `notes.md`, `TASKS.md`, or a report file.
+- If a local dev server was started, include the local URL. If it was stopped, say so.
+- If visual artifacts were generated and can be displayed, show them in the final report or provide clickable absolute paths.

@@ -1,10 +1,24 @@
-# Agent Workspace Template
+# agent-workspace-playbook
 
-这是一个面向 Codex、Claude 和其他本地 Agent 的轻量工作区模板。
+A local workspace standard for multi-agent experiments and workflows.
 
-目标很简单：让每一次 Agent 任务都留在本地项目内，目录清楚、过程可追踪、结果可迁移。
+一个用于管理多 Agent 实验与工作流的本地工作空间标准。
 
-除非用户明确要求其他语言，本模板默认要求 Agent 使用中文回复、中文任务记录和中文说明文档。
+本 Playbook 提供一套结构化方法，用于管理 AI Agent 驱动的本地工作环境：保持 Workspace 结构清晰、管理实验过程、保存重要上下文、复用有效 Workflow，并在不同设备之间保持一致。
+
+除非用户明确要求其他语言，本工作区默认要求 Agent 使用中文回复、中文任务记录和中文说明文档。
+
+## 定位
+
+本项目不是一个新的 Agent 框架、自动化 Agent 平台或简单模板仓库，而是一套长期管理 AI Agent 工作环境的实践规范。
+
+它解决的问题：
+
+- Agent 会生成大量中间文件和临时产物，需要稳定归位。
+- 多个 Agent 可能同时参与同一个项目，需要一致的规则。
+- Prompt、规则、实验记录和输出需要长期保存。
+- 不同电脑之间需要保持一致的工作方式。
+- 用户不断测试新的模型、工具、MCP、Skill 和 Workflow，需要一个稳定实验环境。
 
 ## 外部输入文件
 
@@ -12,7 +26,7 @@
 
 Agent 不应修改、移动、删除外部原文件，也不应扫描外部父目录或批量读取同目录其他文件。若路径不清楚、权限不确定、文件可能敏感，或需要读取一整个外部目录，必须先向用户确认。
 
-## 这个模板提供什么
+## 这个 Playbook 提供什么
 
 - Codex 项目规则文件：`AGENTS.md`
 - Claude 项目规则文件：`CLAUDE.md`
@@ -22,15 +36,63 @@ Agent 不应修改、移动、删除外部原文件，也不应扫描外部父�
 - 待归类、归档、临时文件区
 - 无需 clone 也能让 Agent 创建结构的 `docs/bootstrap-prompt.md`
 
+## GitHub Agent 协作
+
+本仓库支持 Codex、Claude 或其他 Agent 通过 GitHub 进行可审计协作。推荐流程：
+
+```text
+Issue -> branch -> PR -> CI -> review -> merge
+```
+
+新增 Agent 任务时，优先使用 `.github/ISSUE_TEMPLATE/agent-task.yml` 说明 agent、目标、允许修改范围、约束和验收标准。PR 应使用 `.github/pull_request_template.md` 记录关联 issue、验证结果、隐私检查和 contributor attribution 情况。
+
+CI 会运行：
+
+```powershell
+python scripts/check_repository_hygiene.py
+python scripts/check_commit_emails.py
+python scripts/check_task_structure.py
+python -m unittest discover -s tests
+```
+
+Codex 和 Claude 只有在各自产生真实提交并进入默认分支后，才可能成为 GitHub Contributors。不要伪造 Agent 身份或随意添加未确认的 `Co-Authored-By`。
+
+## 交付物入口
+
+每次任务结束时，Agent 不应只说“生成了哪些文件”，还应该告诉用户“从哪里直接打开”。关键产物必须给可点击入口。
+
+常见入口包括：
+
+- GitHub PR、Issue、Actions、Release、仓库或部署页面 URL。
+- 本地报告、HTML、图片、PDF、PPTX、脚本和导出文件的绝对路径链接。
+- 本地服务的 URL，例如 `http://127.0.0.1:3000`。
+- 完整文件清单所在的 `notes.md`、`TASKS.md` 或审计报告。
+
+如果产物很多，只列最重要的入口，避免把最终汇报变成文件瀑布。
+
 ## 目录结构
 
 ```text
-agent-workspace-template/
+agent-workspace-playbook/
 ├─ AGENTS.md
 ├─ CLAUDE.md
 ├─ README.md
 ├─ TASKS.md
 ├─ .gitignore
+├─ .github/
+│  ├─ ISSUE_TEMPLATE/
+│  │  └─ agent-task.yml
+│  ├─ pull_request_template.md
+│  └─ workflows/
+│     └─ tests.yml
+├─ scripts/
+│  ├─ check_commit_emails.py
+│  ├─ check_repository_hygiene.py
+│  └─ check_task_structure.py
+├─ tests/
+│  ├─ test_commit_emails.py
+│  ├─ test_repository_hygiene.py
+│  └─ test_check_task_structure.py
 ├─ 01_tasks/
 │  └─ 00_template/
 │     ├─ prompt.md
@@ -86,6 +148,8 @@ notes.md
 04_tmp/
 ```
 
+细分目录按需创建：输入文件用 `01_assets/01_input/`，最终物用 `02_output/01_final/`，报告用 `02_output/02_reports/`，日志用 `03_logs/01_runs/`；不需要时不要预建空目录。
+
 如果当前对话只是同一主题继续，就复用已有任务目录，不要创建新的时间戳目录。
 
 ## 会话标题规则
@@ -111,6 +175,16 @@ Codex 左侧会话标题建议使用“星标 + 短任务名”，不要使用�
 ```
 
 如果 Codex 当前环境能定位会话并提供重命名工具，agent 应主动把左侧标题改为上述格式；如果工具不可用或无法定位当前会话，则由用户手动重命名。无论左侧标题是否成功修改，文件产出仍必须按 `01_tasks/YYYY-MM-DD-HHMM-short-task-name/` 规则保存。
+
+## 任务结构校验
+
+创建或整理任务目录后，运行：
+
+```powershell
+python scripts/check_task_structure.py
+```
+
+模板仓库同时提供本地 PowerShell 版：`02_shared/02_scripts/01_active/01_check_task_structure.ps1`。脚本会检查每个任务目录是否只包含标准 6 项，并标记任务根目录下的异常目录、散落脚本和旧式目录名。
 
 ## 安全规则
 
