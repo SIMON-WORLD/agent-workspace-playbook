@@ -71,6 +71,17 @@ This is a local agent workspace. Codex should keep all task files and outputs in
 - Do not create legacy top-level folders such as `output/`, `90_archive/`, `.venv/`, `.superpowers/`, `.worktrees/`, or `$task`.
 - After creating or reorganizing tasks, run `python scripts/check_task_structure.py`.
 - A PowerShell workspace-local equivalent is `02_shared/02_scripts/01_active/01_check_task_structure.ps1`.
+
+## Human Navigation (Optional)
+
+- For long-lived workspaces, maintain a root `INDEX.md` for humans: topic, current task paths, status, and key entry points.
+- `TASKS.md` remains the agent-facing task register. `INDEX.md` must not change the `01_tasks/` structure.
+
+## Task vs Project Boundary
+
+- A task folder records one agent work session: prompt, notes, test results, patches, reports, and decisions.
+- Long-lived code/products live in their own repository. The task folder keeps entry points, verification results, and links, not a full project copy (no `.git`, dependency folders, or caches inside task outputs).
+
 ## Shared Materials
 
 - Put reusable documents in `02_shared/01_docs/`.
