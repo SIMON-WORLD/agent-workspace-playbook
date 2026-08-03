@@ -19,8 +19,10 @@ REQUIRED_FILES = [
     ".github/workflows/tests.yml",
     "scripts/check_commit_emails.py",
     "scripts/check_repository_hygiene.py",
+    "scripts/check_task_structure.py",
     "tests/test_commit_emails.py",
     "tests/test_repository_hygiene.py",
+    "tests/test_check_task_structure.py",
 ]
 
 SECRET_PATTERNS = [

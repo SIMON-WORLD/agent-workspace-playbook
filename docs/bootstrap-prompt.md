@@ -26,17 +26,8 @@ TASKS.md
     prompt.md
     notes.md
     01_assets/
-      01_input/
-      02_reference/
-      03_working/
     02_output/
-      01_final/
-      02_reports/
-      03_exports/
-      90_working/
     03_logs/
-      01_runs/
-      90_tool-state/
     04_tmp/
 02_shared/
   01_docs/
@@ -57,6 +48,7 @@ docs/
 - `short-task-name` 使用简短英文 slug，左侧会话标题可以使用中文。
 - 同一主题继续时复用同一个任务目录，不要重复创建时间戳目录。
 - 每个任务目录包含 `prompt.md`、`notes.md`、`01_assets/`、`02_output/`、`03_logs/`、`04_tmp/`。
+- 细分目录按需创建：输入文件用 `01_assets/01_input/`，最终物用 `02_output/01_final/`，报告用 `02_output/02_reports/`，日志用 `03_logs/01_runs/`；不需要时不要预建空目录。
 - 会话标题尽量使用“星标 + 短任务名”，例如 `⭐⭐⭐stata-skill`、`⭐⭐⭐⭐project-workflow`、`⭐officecli-smoke-test`。
 - 星标含义：`⭐` 临时轻量任务；`⭐⭐` 普通任务；`⭐⭐⭐` 重要项目任务；`⭐⭐⭐⭐` 工作区或系统级任务；`⭐⭐⭐⭐⭐` 长期主线或核心生产流。
 - 如果用户首条消息写明 `会话标题：...`，优先采用该标题；如果工具无法自动重命名左侧会话，则提示用户手动重命名，但继续按目录规则执行。
@@ -68,5 +60,5 @@ docs/
 - 可复用文档、脚本、素材分别放入 `02_shared/01_docs`、`02_shared/02_scripts`、`02_shared/03_assets`。
 - 任务结束时必须汇报可直接打开的交付物入口、新增文件、修改文件、移动文件、未处理文件、外部路径风险和验证结果。
 
-创建完成后，请输出最终目录树，并确认没有向当前目录之外写入任何文件。
+创建完成后，请输出最终目录树，并确认没有向当前目录之外写入任何文件。如果模板仓库包含 `scripts/check_task_structure.py`，请运行它校验任务结构；没有则跳过。
 ```

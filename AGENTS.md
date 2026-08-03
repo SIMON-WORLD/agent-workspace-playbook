@@ -52,19 +52,25 @@ This is a local agent workspace. Codex should keep all task files and outputs in
 
 ## Task Subfolders
 
-- `prompt.md`: original request, constraints, expected output.
-- `notes.md`: decisions, process notes, file changes, verification, follow-up.
-- `01_assets/01_input/`: user-provided files and copied-in external inputs.
-- `01_assets/02_reference/`: reference material and read-only context.
-- `01_assets/03_working/`: intermediate working assets.
-- `02_output/01_final/`: final deliverables.
-- `02_output/02_reports/`: reports, audits, explanations.
-- `02_output/03_exports/`: exported files.
-- `02_output/90_working/`: draft or in-progress outputs.
-- `03_logs/01_runs/`: command logs and verification logs.
-- `03_logs/90_tool-state/`: tool state, caches, hidden state folders.
-- `04_tmp/`: task-local temporary files.
+- Each task starts with only 6 entries: `prompt.md`, `notes.md`, `01_assets/`, `02_output/`, `03_logs/`, `04_tmp/`.
+- Create the following subfolders on demand only; do not pre-create empty folders:
+  - `01_assets/01_input/`: user-provided files and copied-in external inputs.
+  - `01_assets/02_reference/`: reference material and read-only context.
+  - `01_assets/03_working/`: intermediate working assets.
+  - `02_output/01_final/`: final deliverables.
+  - `02_output/02_reports/`: reports, audits, explanations.
+  - `02_output/03_exports/`: exported files.
+  - `02_output/90_working/`: draft or in-progress outputs.
+  - `03_logs/01_runs/`: command logs and verification logs.
+  - `03_logs/90_tool-state/`: tool state, caches, hidden state folders.
+  - `04_tmp/`: task-local temporary files.
 
+## Task Structure Validation
+
+- Task roots must contain only `prompt.md`, `notes.md`, `01_assets/`, `02_output/`, `03_logs/`, `04_tmp/`.
+- Do not create legacy top-level folders such as `output/`, `90_archive/`, `.venv/`, `.superpowers/`, `.worktrees/`, or `$task`.
+- After creating or reorganizing tasks, run `python scripts/check_task_structure.py`.
+- A PowerShell workspace-local equivalent is `02_shared/02_scripts/01_active/01_check_task_structure.ps1`.
 ## Shared Materials
 
 - Put reusable documents in `02_shared/01_docs/`.
@@ -85,9 +91,10 @@ This is a local agent workspace. Codex should keep all task files and outputs in
 - Start from a GitHub Issue that states the agent, goal, allowed files/directories, constraints, and acceptance criteria.
 - Create a task branch for agent work; do not commit directly to `main`.
 - Keep PR changes within the issue-approved scope. If the scope changes, update the issue or ask the maintainer before editing more files.
-- Run repository hygiene checks, commit email checks, and tests before asking for review:
+- Run repository hygiene, commit email, task structure, and tests before asking for review:
   - `python scripts/check_repository_hygiene.py`
   - `python scripts/check_commit_emails.py`
+  - `python scripts/check_task_structure.py`
   - `python -m unittest discover -s tests`
 - Do not commit secrets, credentials, private data, personal email addresses, or local absolute paths.
 - Do not claim Codex or Claude contributor attribution unless there are real agent-authored commits intended to enter the default branch.

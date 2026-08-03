@@ -37,6 +37,7 @@ CI 会运行：
 ```powershell
 python scripts/check_repository_hygiene.py
 python scripts/check_commit_emails.py
+python scripts/check_task_structure.py
 python -m unittest discover -s tests
 ```
 
@@ -72,10 +73,12 @@ agent-workspace-template/
 │     └─ tests.yml
 ├─ scripts/
 │  ├─ check_commit_emails.py
-│  └─ check_repository_hygiene.py
+│  ├─ check_repository_hygiene.py
+│  └─ check_task_structure.py
 ├─ tests/
 │  ├─ test_commit_emails.py
-│  └─ test_repository_hygiene.py
+│  ├─ test_repository_hygiene.py
+│  └─ test_check_task_structure.py
 ├─ 01_tasks/
 │  └─ 00_template/
 │     ├─ prompt.md
@@ -131,6 +134,8 @@ notes.md
 04_tmp/
 ```
 
+细分目录按需创建：输入文件用 `01_assets/01_input/`，最终物用 `02_output/01_final/`，报告用 `02_output/02_reports/`，日志用 `03_logs/01_runs/`；不需要时不要预建空目录。
+
 如果当前对话只是同一主题继续，就复用已有任务目录，不要创建新的时间戳目录。
 
 ## 会话标题规则
@@ -156,6 +161,16 @@ Codex 左侧会话标题建议使用“星标 + 短任务名”，不要使用�
 ```
 
 如果 Codex 当前环境能定位会话并提供重命名工具，agent 应主动把左侧标题改为上述格式；如果工具不可用或无法定位当前会话，则由用户手动重命名。无论左侧标题是否成功修改，文件产出仍必须按 `01_tasks/YYYY-MM-DD-HHMM-short-task-name/` 规则保存。
+
+## 任务结构校验
+
+创建或整理任务目录后，运行：
+
+```powershell
+python scripts/check_task_structure.py
+```
+
+模板仓库同时提供本地 PowerShell 版：`02_shared/02_scripts/01_active/01_check_task_structure.ps1`。脚本会检查每个任务目录是否只包含标准 6 项，并标记任务根目录下的异常目录、散落脚本和旧式目录名。
 
 ## 安全规则
 

@@ -29,5 +29,8 @@ jobs:
       - name: Check commit emails
         run: python scripts/check_commit_emails.py
 
+      - name: Check task structure
+        run: python scripts/check_task_structure.py
+
       - name: Run tests
         run: python -m unittest discover -s tests
