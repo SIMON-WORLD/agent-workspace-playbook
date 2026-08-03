@@ -32,5 +32,8 @@ jobs:
       - name: Check task structure
         run: python scripts/check_task_structure.py
 
+      - name: Check index freshness
+        run: python scripts/build_index.py --check
+
       - name: Run tests
         run: python -m unittest discover -s tests
