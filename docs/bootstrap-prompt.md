@@ -13,13 +13,16 @@
 - 除非我明确要求其他语言，回复、说明文档、任务记录和最终报告默认使用中文。
 - 如果我明确上传、拖入、粘贴，或给出某个外部文件的完整路径，可以只读读取该单个文件作为输入；读取后先复制到当前任务目录的 `01_assets/01_input/`，后续处理基于项目内副本进行。不要修改、移动、删除外部原文件，不要扫描外部父目录，不要把输出写回外部路径。
 - 每次任务结束时必须给出可直接打开的交付物入口。GitHub PR/Issue/Actions/Release 给 URL；本地关键文件给可点击绝对路径；网页、图片、PDF、PPTX、报告、脚本和导出文件要说明在哪里看、怎么打开。
+- 长期使用建议额外创建根级 `INDEX.md` 作为人类导航；它不是 Agent 必需文件，不应改变 `01_tasks/` 结构。
+
+请创建与当前 Agent 对应的规则文件：Codex 使用 `AGENTS.md`，Claude 使用 `CLAUDE.md`。只创建当前使用的 Agent 对应文件，不强制同时创建两份。
 
 请创建这个结构：
 
-AGENTS.md
-CLAUDE.md
 README.md
 TASKS.md
+AGENTS.md 或 CLAUDE.md（按当前 Agent 选择）
+INDEX.md（可选，人类导航）
 .gitignore
 01_tasks/
   00_template/
@@ -42,7 +45,7 @@ docs/
   claude-usage.md
   migration.md
 
-请写入 AGENTS.md 和 CLAUDE.md 的核心规则：
+请写入当前 Agent 对应规则文件（`AGENTS.md` 或 `CLAUDE.md`）的核心规则：
 - 每个新任务使用 `01_tasks/YYYY-MM-DD-HHMM-short-task-name/`。
 - `YYYY-MM-DD-HHMM` 必须使用当前本机日期时间，不要使用 `0000` 或 `HHMM` 这类占位符；如果当前时间不确定，先运行本地时间命令确认。
 - `short-task-name` 使用简短英文 slug，左侧会话标题可以使用中文。
@@ -59,6 +62,7 @@ docs/
 - 临时文件放入任务内 `04_tmp/` 或根目录 `05_tmp/`。
 - 可复用文档、脚本、素材分别放入 `02_shared/01_docs`、`02_shared/02_scripts`、`02_shared/03_assets`。
 - 任务结束时必须汇报可直接打开的交付物入口、新增文件、修改文件、移动文件、未处理文件、外部路径风险和验证结果。
+- 任务目录只保存一次 Agent 工作过程；长期代码/产品放在独立仓库，不要把完整项目副本（含 `.git`、依赖目录、缓存）放进任务输出。
 
 创建完成后，请输出最终目录树，并确认没有向当前目录之外写入任何文件。如果模板仓库包含 `scripts/check_task_structure.py`，请运行它校验任务结构；没有则跳过。
 ```

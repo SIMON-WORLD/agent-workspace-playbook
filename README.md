@@ -28,13 +28,20 @@ Agent 不应修改、移动、删除外部原文件，也不应扫描外部父�
 
 ## 这个 Playbook 提供什么
 
-- Codex 项目规则文件：`AGENTS.md`
-- Claude 项目规则文件：`CLAUDE.md`
+- 按 Agent 类型使用的项目规则文件：Codex 使用 `AGENTS.md`，Claude 使用 `CLAUDE.md`；使用哪个 Agent 就保留哪个文件，不强制同时放置两份。
 - 每个任务一个独立目录：`01_tasks/`
 - 任务内清晰编号：素材、产出、日志、临时文件各归其位
 - 跨任务复用资料区：`02_shared/`
 - 待归类、归档、临时文件区
 - 无需 clone 也能让 Agent 创建结构的 `docs/bootstrap-prompt.md`
+
+## 人类导航（可选）
+
+任务目录名以时间戳开头，Agent 很好用，但长期使用后人会越来越难浏览。建议长期工作区在根目录增加 `INDEX.md`，只记录主题、当前任务路径、状态和常用入口，不改变 `01_tasks/` 结构。`TASKS.md` 继续作为 Agent 视角的任务登记。
+
+## Task vs Project Boundary
+
+任务目录保存一次 Agent 工作过程：prompt、notes、测试结果、patch、报告和决策记录。长期代码/产品应放在独立仓库，任务目录只保存入口、验证结果和链接；不要把完整项目副本（含 `.git`、依赖目录、缓存）放进任务输出。
 
 ## GitHub Agent 协作
 
@@ -74,10 +81,11 @@ Codex 和 Claude 只有在各自产生真实提交并进入默认分支后，才
 
 ```text
 agent-workspace-playbook/
-├─ AGENTS.md
-├─ CLAUDE.md
+├─ AGENTS.md                # 模板仓库保留两份；实际工作区按当前 Agent 保留一份
+├─ CLAUDE.md                # 模板仓库保留两份；实际工作区按当前 Agent 保留一份
 ├─ README.md
 ├─ TASKS.md
+├─ INDEX.md                 # 可选，人类导航
 ├─ .gitignore
 ├─ .github/
 │  ├─ ISSUE_TEMPLATE/

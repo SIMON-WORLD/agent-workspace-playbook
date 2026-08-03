@@ -10,8 +10,6 @@ import subprocess
 import sys
 
 REQUIRED_FILES = [
-    "AGENTS.md",
-    "CLAUDE.md",
     "README.md",
     "TASKS.md",
     ".github/ISSUE_TEMPLATE/agent-task.yml",
@@ -23,6 +21,11 @@ REQUIRED_FILES = [
     "tests/test_commit_emails.py",
     "tests/test_repository_hygiene.py",
     "tests/test_check_task_structure.py",
+]
+
+# At least one agent rule file must exist; a single-agent workspace may keep only its own.
+REQUIRED_ONE_OF = [
+    ("AGENTS.md", "CLAUDE.md"),
 ]
 
 SECRET_PATTERNS = [
@@ -98,6 +101,9 @@ def check_required_files(root: pathlib.Path) -> list[str]:
     for file_name in REQUIRED_FILES:
         if not (root / file_name).is_file():
             missing.append(f"Missing required file: {file_name}")
+    for group in REQUIRED_ONE_OF:
+        if not any((root / file_name).is_file() for file_name in group):
+            missing.append(f"Missing at least one required file: {', '.join(group)}")
     return missing
 
 
