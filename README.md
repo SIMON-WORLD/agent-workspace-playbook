@@ -81,8 +81,8 @@ Codex 和 Claude 只有在各自产生真实提交并进入默认分支后，才
 
 ```text
 agent-workspace-playbook/
-├─ AGENTS.md
-├─ CLAUDE.md
+├─ AGENTS.md                # 模板仓库保留两份；实际工作区按当前 Agent 保留一份
+├─ CLAUDE.md                # 模板仓库保留两份；实际工作区按当前 Agent 保留一份
 ├─ README.md
 ├─ TASKS.md
 ├─ INDEX.md                 # 可选，人类导航

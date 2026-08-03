@@ -30,6 +30,26 @@ class RepositoryHygieneTests(unittest.TestCase):
             path.write_bytes(b"\x89PNG\r\n")
             self.assertIsNone(check_repository_hygiene.read_text(path))
 
+    def test_agent_rule_file_requires_at_least_one(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = pathlib.Path(temp_dir)
+            missing = check_repository_hygiene.check_required_files(root)
+            self.assertTrue(
+                any("AGENTS.md, CLAUDE.md" in message for message in missing)
+            )
+            (root / "AGENTS.md").write_text("", encoding="utf-8")
+            missing = check_repository_hygiene.check_required_files(root)
+            self.assertFalse(
+                any("AGENTS.md, CLAUDE.md" in message for message in missing)
+            )
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = pathlib.Path(temp_dir)
+            (root / "CLAUDE.md").write_text("", encoding="utf-8")
+            missing = check_repository_hygiene.check_required_files(root)
+            self.assertFalse(
+                any("AGENTS.md, CLAUDE.md" in message for message in missing)
+            )
+
 
 if __name__ == "__main__":
     unittest.main()
