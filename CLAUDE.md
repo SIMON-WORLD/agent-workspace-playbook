@@ -36,16 +36,17 @@ This is a local agent workspace. Claude should keep all task files and outputs i
 
 ## Conversation Title Rule
 
-- Agent sidebar titles should use "stars + short task name" whenever possible. Do not default to long first-message text or full date-time titles.
+- Keep the user's first message natural. Do not require a `会话标题：...` prefix just to satisfy naming.
+- If the user does provide `会话标题：...` or `Conversation title: ...`, prefer that title.
+- The agent may suggest a short title (for example `⭐⭐⭐short-task-name`) in its first reply and record it in `prompt.md` or `notes.md`.
 - Use stars to express importance and task level:
   - `⭐`: quick check, lightweight experiment, one-off test.
   - `⭐⭐`: normal test task.
   - `⭐⭐⭐`: important project task, reusable capability development, formal workflow test.
   - `⭐⭐⭐⭐`: workspace rules, template work, system-level cleanup, migration.
   - `⭐⭐⭐⭐⭐`: long-running mainline, core production workflow, highest-priority project.
-- Recommended title format: `⭐⭐⭐short-task-name`, for example `⭐⭐⭐stata-skill`, `⭐⭐⭐⭐project-workflow`, `⭐officecli-smoke-test`.
-- If the user provides `会话标题：...` or `Conversation title: ...` in the first message, prefer that title in notes and, when the app supports it, in the sidebar.
-- If the current app cannot programmatically rename the sidebar title, do not write to global config just to rename it. Tell the user they can manually rename it, then continue following the workspace file rules.
+- If the current agent environment provides a thread rename tool and the current thread id is available, apply the suggested title automatically. Otherwise, do not require the user to rename frequently; they may rename manually when they want a tidy sidebar.
+- Never write to global config just to rename a title.
 - Sidebar titles are only for human recognition. Task folders must still use `01_tasks/YYYY-MM-DD-HHMM-short-task-name/`.
 - Continued work under the same sidebar title should reuse the same task folder unless the user clearly starts a different task.
 
