@@ -73,6 +73,7 @@ Codex 和 Claude 只有在各自产生真实提交并进入默认分支后，才
 
 - GitHub PR、Issue、Actions、Release、仓库或部署页面 URL。
 - 本地报告、HTML、图片、PDF、PPTX、脚本和导出文件的绝对路径链接。
+- Codex 桌面可点击格式：`[名称](<E:/绝对/路径/文件>)`；不要只贴 `E:\...` 裸路径，不要使用 `file://`。
 - 本地服务的 URL，例如 `http://127.0.0.1:3000`。
 - 完整文件清单所在的 `notes.md`、`TASKS.md` 或审计报告。
 

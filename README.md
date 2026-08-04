@@ -73,6 +73,7 @@ Common entry points include:
 
 - GitHub PR, Issue, Actions, Release, repository, or deployment page URLs.
 - Absolute path links for local reports, HTML, images, PDFs, PPTX files, scripts, and exports.
+- On Codex Desktop, use the form `[label](<E:/absolute/path/file>)`; bare `E:\...` paths and `file://` are not clickable.
 - Local service URLs such as `http://127.0.0.1:3000`.
 - `notes.md`, `TASKS.md`, or audit reports that contain the full file manifest.
 
