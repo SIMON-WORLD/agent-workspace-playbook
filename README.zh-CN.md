@@ -2,14 +2,6 @@
 
 > [English](README.md) | **简体中文**
 
-![GitHub Release](https://img.shields.io/github/v/release/SIMON-WORLD/agent-workspace-playbook)
-![GitHub Contributors](https://img.shields.io/github/contributors/SIMON-WORLD/agent-workspace-playbook)
-![GitHub Forks](https://img.shields.io/github/forks/SIMON-WORLD/agent-workspace-playbook)
-![GitHub Stars](https://img.shields.io/github/stars/SIMON-WORLD/agent-workspace-playbook)
-![GitHub Issues](https://img.shields.io/github/issues/SIMON-WORLD/agent-workspace-playbook)
-![License](https://img.shields.io/github/license/SIMON-WORLD/agent-workspace-playbook)
-[![Docs](https://img.shields.io/badge/docs-docs%2F-blue)](docs/)
-
 一个用于管理多 Agent 实验与工作流的本地工作空间标准。
 
 本 Playbook 提供一套结构化方法，用于管理 AI Agent 驱动的本地工作环境：保持 Workspace 结构清晰、管理实验过程、保存重要上下文、复用有效 Workflow，并在不同设备之间保持一致。
