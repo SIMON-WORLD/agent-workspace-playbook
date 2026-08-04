@@ -1,6 +1,6 @@
 # agent-workspace-playbook
 
-> [English](README.md) | **中文**
+> [主页](README.md) | [English](README.en.md) | **中文**
 
 一个用于管理多 Agent 实验与工作流的本地工作空间标准。
 
@@ -84,8 +84,9 @@ Codex 和 Claude 只有在各自产生真实提交并进入默认分支后，才
 agent-workspace-playbook/
 ├─ AGENTS.md                # 模板仓库保留两份；实际工作区按当前 Agent 保留一份
 ├─ CLAUDE.md                # 模板仓库保留两份；实际工作区按当前 Agent 保留一份
-├─ README.md                # 英文 README
-├─ README.zh-CN.md          # 中文 README
+├─ README.md                # 双语主页（中英入口）
+├─ README.en.md             # 英文完整文档
+├─ README.zh-CN.md          # 中文完整文档
 ├─ TASKS.md
 ├─ INDEX.md                 # 可选，由 scripts/build_index.py 自动生成
 ├─ .gitignore

@@ -11,6 +11,8 @@ import sys
 
 REQUIRED_FILES = [
     "README.md",
+    "README.en.md",
+    "README.zh-CN.md",
     "TASKS.md",
     ".github/ISSUE_TEMPLATE/agent-task.yml",
     ".github/pull_request_template.md",
