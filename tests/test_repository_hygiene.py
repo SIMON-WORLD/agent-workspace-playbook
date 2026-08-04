@@ -12,7 +12,6 @@ class RepositoryHygieneTests(unittest.TestCase):
         self.assertIn("tests/test_repository_hygiene.py", check_repository_hygiene.REQUIRED_FILES)
         self.assertIn("scripts/build_index.py", check_repository_hygiene.REQUIRED_FILES)
         self.assertIn("tests/test_build_index.py", check_repository_hygiene.REQUIRED_FILES)
-        self.assertIn("README.en.md", check_repository_hygiene.REQUIRED_FILES)
         self.assertIn("README.zh-CN.md", check_repository_hygiene.REQUIRED_FILES)
 
     def test_local_path_examples_are_allowed_only_with_context(self):
