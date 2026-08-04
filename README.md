@@ -1,17 +1,9 @@
 # agent-workspace-playbook
 
 A local workspace standard for multi-agent experiments and workflows.
-一个用于管理多 Agent 实验与工作流的本地工作空间标准。
 
 > **English** | [简体中文](README.zh-CN.md)
 
-![GitHub Release](https://img.shields.io/github/v/release/SIMON-WORLD/agent-workspace-playbook)
-![GitHub Contributors](https://img.shields.io/github/contributors/SIMON-WORLD/agent-workspace-playbook)
-![GitHub Forks](https://img.shields.io/github/forks/SIMON-WORLD/agent-workspace-playbook)
-![GitHub Stars](https://img.shields.io/github/stars/SIMON-WORLD/agent-workspace-playbook)
-![GitHub Issues](https://img.shields.io/github/issues/SIMON-WORLD/agent-workspace-playbook)
-![License](https://img.shields.io/github/license/SIMON-WORLD/agent-workspace-playbook)
-[![Docs](https://img.shields.io/badge/docs-docs%2F-blue)](docs/)
 This Playbook provides a structured method for managing AI-agent-driven local workspaces: keeping the workspace structure clear, managing experiments, preserving important context, reusing effective workflows, and staying consistent across different machines.
 
 Unless the user explicitly requests another language, this workspace requires agents to reply, log tasks, and write documentation in Chinese by default.
