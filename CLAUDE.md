@@ -8,12 +8,14 @@ This is a local agent workspace. Claude should keep all task files and outputs i
 - Unless the user explicitly requests another language, write user-facing replies, documentation, task notes, and final reports in Chinese.
 - Do not write generated files, logs, temporary files, scripts, skills, MCP config, or task outputs to global `.claude`, global `.codex`, global `.agents`, Desktop, Downloads, Documents, system folders, or any path outside this workspace.
 - Do not run global install commands such as `npm install -g`, global `pip install`, PATH edits, system environment changes, or user-level agent configuration changes without explicit confirmation.
+- **Platform-agent exception (WorkBuddy):** Desktop/platform agents such as WorkBuddy necessarily keep their runtime outside the workspace — managed Python/Node under the user-level `~/.workbuddy/binaries`, global skills in `~/.workbuddy/skills`, user-level memory in `~/.workbuddy/MEMORY.md`, and automations in `~/.workbuddy/workbuddy.db`. This workspace boundary constrains **task outputs and agent-authored project files**, not the agent platform's own runtime. WorkBuddy must still keep all task outputs (`prompt` / `notes` / `assets` / `output` / `logs` / `tmp`) inside `01_tasks/`, and must not run `npm install -g`, global `pip install`, PATH edits, or system environment changes inside the workspace.
 - If a path, permission, or target directory is unclear, stop and ask the user.
 
 ## Agent Rule Files
 
 - If this workspace is used by only one agent, keep only that agent's rule file (`AGENTS.md` for Codex, `CLAUDE.md` for Claude).
 - If multiple agents share this workspace, keep the rule file for each agent; do not delete another agent's rule file.
+- Known third agent: **WorkBuddy** (a desktop AI assistant) reads this workspace's `AGENTS.md` / `CLAUDE.md` as its contract and does not keep a separate rule file. Its project-level memory lives in `.workbuddy/memory/` and project-level skills in `.workbuddy/skills/`. Accept `.workbuddy/` as a project-local store when WorkBuddy is in use.
 
 ## User-Provided External Input Files
 
