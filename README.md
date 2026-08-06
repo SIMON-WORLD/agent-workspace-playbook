@@ -170,7 +170,7 @@ If the current conversation continues the same topic, reuse the existing task fo
 
 Conversation titles are optional and do not affect task folders. The user can simply state what they want in the first message.
 
-The agent may suggest a short title (for example `⭐⭐⭐short-task-name`) in its first reply and record it in the task notes; if the environment provides a thread rename tool, the agent may apply it. Otherwise, the user is not required to rename frequently.
+The agent MUST propose a short title in its first reply using the form `会话标题：⭐⭐⭐short-task-name` and record it at the top of `prompt.md`; if the environment provides a thread rename tool, the agent applies it automatically, otherwise it tells the user the suggested title to rename manually.
 
 Star levels:
 
