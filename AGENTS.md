@@ -43,14 +43,14 @@ This is a local agent workspace. Codex should keep all task files and outputs in
 
 - Keep the user's first message natural. Do not require a `会话标题：...` prefix just to satisfy naming.
 - If the user does provide `会话标题：...` or `Conversation title: ...`, prefer that title.
-- The agent may suggest a short title (for example `⭐⭐⭐short-task-name`) in its first reply and record it in `prompt.md` or `notes.md`.
+- The agent MUST propose a short title in its first reply using the form `会话标题：⭐⭐⭐short-task-name` (star count follows the task level) and record it at the top of `prompt.md` (or `notes.md` if the task folder is not created yet).
 - Use stars to express importance and task level:
   - `⭐`: quick check, lightweight experiment, one-off test.
   - `⭐⭐`: normal test task.
   - `⭐⭐⭐`: important project task, reusable capability development, formal workflow test.
   - `⭐⭐⭐⭐`: workspace rules, template work, system-level cleanup, migration.
   - `⭐⭐⭐⭐⭐`: long-running mainline, core production workflow, highest-priority project.
-- If the current agent environment provides a thread rename tool and the current thread id is available, apply the suggested title automatically. Otherwise, do not require the user to rename frequently; they may rename manually when they want a tidy sidebar.
+- If the current agent environment provides a thread rename tool and the current thread id is available, apply the suggested title automatically. Otherwise, tell the user they may rename the sidebar title to the suggested one.
 - Never write to global config just to rename a title.
 - Sidebar titles are only for human recognition. Task folders must still use `01_tasks/YYYY-MM-DD-HHMM-short-task-name/`.
 - Continued work under the same sidebar title should reuse the same task folder unless the user clearly starts a different task.
