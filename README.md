@@ -28,7 +28,7 @@ The agent must not modify, move, or delete the external source file, scan its pa
 
 ## What This Playbook Provides
 
-- Agent-specific rule files: Codex uses `AGENTS.md`, Claude uses `CLAUDE.md`; a single-agent workspace keeps only the current agent's file, while a multi-agent workspace keeps all agent files.
+- Agent-specific rule files: Codex uses `AGENTS.md`, Claude uses `CLAUDE.md`; a single-agent workspace keeps only the current agent's file, while a multi-agent workspace keeps all agent files. A known third agent, **WorkBuddy** (a desktop AI assistant), reads this workspace's `AGENTS.md` / `CLAUDE.md` as its contract and does not keep a separate rule file; its project-local memory/skills live in the workspace-root `.workbuddy/`.
 - One isolated directory per task: `01_tasks/`
 - Clear numbered subfolders inside each task for assets, outputs, logs, and temporary files
 - A shared area for reusable materials: `02_shared/`
@@ -45,7 +45,7 @@ A task folder records one agent work session: prompt, notes, test results, patch
 
 ## GitHub Agent Collaboration
 
-This repository supports auditable collaboration by Codex, Claude, or other agents through GitHub. The recommended flow is:
+This repository supports auditable collaboration by Codex, Claude, WorkBuddy, or other agents through GitHub. The recommended flow is:
 
 ```text
 Issue -> branch -> PR -> CI -> review -> merge
@@ -63,7 +63,7 @@ python scripts/build_index.py --check
 python -m unittest discover -s tests
 ```
 
-Codex and Claude can only become GitHub Contributors after producing real commits that enter the default branch. Do not fake agent identities or add unconfirmed `Co-Authored-By` trailers.
+Codex, Claude, and WorkBuddy can only become GitHub Contributors after producing real commits that enter the default branch. Do not fake agent identities or add unconfirmed `Co-Authored-By` trailers.
 
 ## Deliverable Entry Points
 

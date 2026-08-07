@@ -1,6 +1,6 @@
 # Bootstrap Prompt
 
-当你不想 `git clone`，而是希望 Codex、Claude 或其他本地 Agent 直接在当前目录创建这套工作区时，复制下面这段 prompt。
+当你不想 `git clone`，而是希望 Codex、Claude、WorkBuddy 或其他本地 Agent 直接在当前目录创建这套工作区时，复制下面这段 prompt。
 
 ```text
 请把当前目录初始化为一个本地 Agent 工作区。
@@ -16,7 +16,7 @@
 - 本地关键文件入口必须使用 `[名称](<E:/绝对/路径/文件>)` 格式；不要只贴 `E:\...` 裸路径，不要使用 `file://`。
 - 长期使用建议额外创建根级 `INDEX.md` 作为人类导航；它由 `scripts/build_index.py` 自动生成，不要手工维护，也不应改变 `01_tasks/` 结构。
 
-请创建与当前 Agent 对应的规则文件：Codex 使用 `AGENTS.md`，Claude 使用 `CLAUDE.md`。如果工作区只由当前 Agent 使用，只创建对应的一份；如果多个 Agent 会共用同一工作区，则同时保留各 Agent 的规则文件。
+请创建与当前 Agent 对应的规则文件：Codex 使用 `AGENTS.md`，Claude 使用 `CLAUDE.md`。如果工作区只由当前 Agent 使用，只创建对应的一份；如果多个 Agent 会共用同一工作区，则同时保留各 Agent 的规则文件。已知第三种 Agent **WorkBuddy**（桌面 AI 助手）不单独持有规则文件，而是以本工作区的 `AGENTS.md` / `CLAUDE.md` 作为契约；它的项目级记忆/技能位于工作区根目录的 `.workbuddy/`，且**只能放在工作区根目录**，不得放进 `01_tasks/<task>/` 任务根目录（否则结构校验会报异常）。
 
 请创建这个结构：
 

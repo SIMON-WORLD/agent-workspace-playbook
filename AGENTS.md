@@ -8,12 +8,15 @@ This is a local agent workspace. Codex should keep all task files and outputs in
 - Unless the user explicitly requests another language, write user-facing replies, documentation, task notes, and final reports in Chinese.
 - Do not write generated files, logs, temporary files, scripts, skills, MCP config, or task outputs to global `.codex`, global `.agents`, Desktop, Downloads, Documents, system folders, or any path outside this workspace.
 - Do not run global install commands such as `npm install -g`, global `pip install`, PATH edits, system environment changes, or user-level agent configuration changes without explicit confirmation.
+- **Platform-agent exception (WorkBuddy):** Desktop/platform agents such as WorkBuddy necessarily keep their runtime outside the workspace. The only user-level paths WorkBuddy may manage are its own platform runtime under `~/.workbuddy/...` (managed Python/Node in `~/.workbuddy/binaries`, its own skills in `~/.workbuddy/skills`, user-level memory in `~/.workbuddy/MEMORY.md`, and automations in `~/.workbuddy/workbuddy.db`). This clause applies **only** to WorkBuddy's own runtime; it does **not** grant permission to write arbitrary user directories. Any user-level write must be disclosed to the user in advance, backed up first, and listed in the task `notes.md` / end-of-task report. WorkBuddy must still keep all task outputs (`prompt` / `notes` / `assets` / `output` / `logs` / `tmp`) inside `01_tasks/`. It must not modify `PATH`, system environment variables, or any other global configuration; it must not run `npm install -g` / global `pip install`; and every user-level install must be recorded and reported.
 - If a path, permission, or target directory is unclear, stop and ask the user.
 
 ## Agent Rule Files
 
 - If this workspace is used by only one agent, keep only that agent's rule file (`AGENTS.md` for Codex, `CLAUDE.md` for Claude).
 - If multiple agents share this workspace, keep the rule file for each agent; do not delete another agent's rule file.
+- Known third agent: **WorkBuddy** (a desktop AI assistant) reads this workspace's `AGENTS.md` / `CLAUDE.md` as its contract and does not keep a separate rule file. Its project-level memory lives in `.workbuddy/memory/` and project-level skills in `.workbuddy/skills/`. Accept `.workbuddy/` as a project-local store when WorkBuddy is in use.
+- **`.workbuddy/` location:** the project-local `.workbuddy/` (memory, skills) is placed only at the **workspace root**. It must **not** be placed inside a task folder (`01_tasks/<task>/`), otherwise `check_task_structure.py` / `01_check_task_structure.ps1` will flag it as an unexpected task-root item.
 
 ## User-Provided External Input Files
 
