@@ -28,7 +28,7 @@ Agent 不应修改、移动、删除外部原文件，也不应扫描外部父�
 
 ## 这个 Playbook 提供什么
 
-- 按 Agent 类型使用的项目规则文件：Codex 使用 `AGENTS.md`，Claude 使用 `CLAUDE.md`；单 Agent 工作区只保留当前 Agent 的文件，多 Agent 共用工作区同时保留两份。已知第三种 Agent **WorkBuddy**（桌面 AI 助手）以本工作区的 `AGENTS.md` / `CLAUDE.md` 作为契约，不单独持有规则文件；其项目级记忆/技能位于工作区根目录的 `.workbuddy/`。
+- 按 Agent 类型使用的项目规则文件：Codex 使用 `AGENTS.md`，Claude 使用 `CLAUDE.md`；单 Agent 工作区只保留当前 Agent 的文件，多 Agent 共用工作区同时保留两份。已知契约型 Agent **WorkBuddy**（桌面 AI 助手）与 **DeepSeek Harness（DSH，本地 CLI/Web Agent 运行时）** 均以本工作区的 `AGENTS.md` / `CLAUDE.md` 作为契约，不单独持有规则文件；WorkBuddy 的项目级记忆/技能位于工作区根目录的 `.workbuddy/`，DSH 的运行时位于工作区外的用户级 npm 缓存，不受工作区规则管理。
 - 每个任务一个独立目录：`01_tasks/`
 - 任务内清晰编号：素材、产出、日志、临时文件各归其位
 - 跨任务复用资料区：`02_shared/`
@@ -63,7 +63,7 @@ python scripts/build_index.py --check
 python -m unittest discover -s tests
 ```
 
-Codex、Claude 和 WorkBuddy 只有在各自产生真实提交并进入默认分支后，才可能成为 GitHub Contributors。不要伪造 Agent 身份或随意添加未确认的 `Co-Authored-By`。
+Codex、Claude、WorkBuddy 和 DeepSeek Harness 只有在各自产生真实提交并进入默认分支后，才可能成为 GitHub Contributors。不要伪造 Agent 身份或随意添加未确认的 `Co-Authored-By`。
 
 ## 交付物入口
 

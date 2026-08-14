@@ -15,7 +15,7 @@ This is a local agent workspace. Claude should keep all task files and outputs i
 
 - If this workspace is used by only one agent, keep only that agent's rule file (`AGENTS.md` for Codex, `CLAUDE.md` for Claude).
 - If multiple agents share this workspace, keep the rule file for each agent; do not delete another agent's rule file.
-- Known third agent: **WorkBuddy** (a desktop AI assistant) reads this workspace's `AGENTS.md` / `CLAUDE.md` as its contract and does not keep a separate rule file. Its project-level memory lives in `.workbuddy/memory/` and project-level skills in `.workbuddy/skills/`. Accept `.workbuddy/` as a project-local store when WorkBuddy is in use.
+- Known contract-only agents: **WorkBuddy** (a desktop AI assistant) and **DeepSeek Harness (DSH)** (a local CLI/Web agent runtime) read this workspace's `AGENTS.md` / `CLAUDE.md` as their contract and do not keep separate rule files. WorkBuddy's project-level memory lives in `.workbuddy/memory/` and project-level skills in `.workbuddy/skills/`; accept `.workbuddy/` as a project-local store when WorkBuddy is in use. DSH's runtime lives in the user-level npm cache outside the workspace and is not managed by the workspace rules.
 - **`.workbuddy/` location:** the project-local `.workbuddy/` (memory, skills) is placed only at the **workspace root**. It must **not** be placed inside a task folder (`01_tasks/<task>/`), otherwise `check_task_structure.py` / `01_check_task_structure.ps1` will flag it as an unexpected task-root item.
 
 ## User-Provided External Input Files
