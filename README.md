@@ -28,7 +28,7 @@ The agent must not modify, move, or delete the external source file, scan its pa
 
 ## What This Playbook Provides
 
-- Agent-specific rule files: Codex uses `AGENTS.md`, Claude uses `CLAUDE.md`; a single-agent workspace keeps only the current agent's file, while a multi-agent workspace keeps all agent files. A known third agent, **WorkBuddy** (a desktop AI assistant), reads this workspace's `AGENTS.md` / `CLAUDE.md` as its contract and does not keep a separate rule file; its project-local memory/skills live in the workspace-root `.workbuddy/`.
+- Agent-specific rule files: Codex uses `AGENTS.md`, Claude uses `CLAUDE.md`; a single-agent workspace keeps only the current agent's file, while a multi-agent workspace keeps all agent files. Known contract-only agents, **WorkBuddy** (a desktop AI assistant) and **DeepSeek Harness (DSH)** (a local CLI/Web agent runtime), read this workspace's `AGENTS.md` / `CLAUDE.md` as their contract and do not keep separate rule files; WorkBuddy's project-local memory/skills live in the workspace-root `.workbuddy/`, and DSH's runtime lives in the user-level npm cache outside the workspace.
 - One isolated directory per task: `01_tasks/`
 - Clear numbered subfolders inside each task for assets, outputs, logs, and temporary files
 - A shared area for reusable materials: `02_shared/`
@@ -63,7 +63,7 @@ python scripts/build_index.py --check
 python -m unittest discover -s tests
 ```
 
-Codex, Claude, and WorkBuddy can only become GitHub Contributors after producing real commits that enter the default branch. Do not fake agent identities or add unconfirmed `Co-Authored-By` trailers.
+Codex, Claude, WorkBuddy, and DeepSeek Harness can only become GitHub Contributors after producing real commits that enter the default branch. Do not fake agent identities or add unconfirmed `Co-Authored-By` trailers.
 
 ## Deliverable Entry Points
 
