@@ -57,6 +57,33 @@ ALLOWED_LOCAL_PATH_CONTEXTS = (
     "for example",
 )
 
+ALLOWED_ROOT_NAMES = {
+    ".agents",
+    ".claude",
+    ".codex",
+    ".git",
+    ".github",
+    ".gitignore",
+    ".reasonix",
+    ".workbuddy",
+    "01_tasks",
+    "02_shared",
+    "03_inbox",
+    "04_archive",
+    "05_tmp",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "INDEX.md",
+    "LICENSE",
+    "README.md",
+    "README.zh-CN.md",
+    "TASKS.md",
+    "activity",
+    "docs",
+    "scripts",
+    "tests",
+}
+
 SKIP_SUFFIXES = {
     ".png",
     ".jpg",
@@ -129,8 +156,18 @@ def check_content(root: pathlib.Path) -> list[str]:
     return findings
 
 
+
+
+def check_root_layout(root: pathlib.Path) -> list[str]:
+    """Flag root entries that are not part of the standard workspace layout."""
+    issues = []
+    for entry in sorted(root.iterdir()):
+        if entry.name not in ALLOWED_ROOT_NAMES:
+            kind = "directory" if entry.is_dir() else "file"
+            issues.append(f"Unexpected root {kind}: {entry.name}")
+    return issues
 def run(root: pathlib.Path) -> int:
-    findings = check_required_files(root) + check_content(root)
+    findings = check_required_files(root) + check_content(root) + check_root_layout(root)
     if findings:
         print("Repository hygiene check failed:")
         for finding in findings:

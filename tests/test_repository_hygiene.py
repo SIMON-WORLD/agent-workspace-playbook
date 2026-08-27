@@ -54,5 +54,15 @@ class RepositoryHygieneTests(unittest.TestCase):
             )
 
 
+
+    def test_root_layout_flags_unexpected_entries(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = pathlib.Path(temp_dir)
+            (root / "node_modules").mkdir()
+            (root / "README.md").write_text("", encoding="utf-8")
+            issues = check_repository_hygiene.check_root_layout(root)
+            self.assertTrue(any("node_modules" in issue for issue in issues))
+            self.assertFalse(any("README.md" in issue for issue in issues))
+
 if __name__ == "__main__":
     unittest.main()
