@@ -180,6 +180,8 @@ Star levels:
 - `⭐⭐⭐⭐`: workspace rules, template work, system-level cleanup, migration.
 - `⭐⭐⭐⭐⭐`: long-running mainline, core production workflow, highest-priority project.
 
+When auto-naming, pick the star level from the task nature (1-5) and only rename the current session; never rename a source/sender thread. If the sidebar strips stars, rename manually once.
+
 Regardless of the sidebar title, file outputs must still follow `01_tasks/YYYY-MM-DD-HHMM-short-task-name/`.
 
 ## Security Rules
