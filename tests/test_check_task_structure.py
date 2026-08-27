@@ -90,5 +90,27 @@ class CheckTaskStructureTests(unittest.TestCase):
             self.assertFalse(any("empty pre-created subfolder" in issue for issue in issues))
 
 
+
+    def test_unregistered_task_fails(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = pathlib.Path(temp_dir)
+            self._make_task(root, "2026-08-03-1200-demo-task")
+            (root / "TASKS.md").write_text(
+                "| Date Time | Task Name | Directory | Status | Outputs | Notes |\n"
+                "|---|---|---|---|---|---|\n"
+                "| 2026-08-01 00:00 | other | 01_tasks/2026-08-01-0000-other/ | done | | |\n",
+                encoding="utf-8",
+            )
+            issues = check_task_structure.check_workspace(root)
+            self.assertTrue(any("not registered in TASKS.md" in issue for issue in issues))
+
+    def test_git_in_node_modules_ignored(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = pathlib.Path(temp_dir)
+            task = self._make_task(root, "2026-08-03-1200-demo-task")
+            (task / "02_output" / "repo" / "node_modules" / ".git").mkdir(parents=True, exist_ok=True)
+            issues = check_task_structure.check_workspace(root)
+            self.assertFalse(any(".git directory" in issue for issue in issues))
+
 if __name__ == "__main__":
     unittest.main()
