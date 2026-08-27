@@ -46,7 +46,7 @@ This is a local agent workspace. Codex should keep all task files and outputs in
 
 - Keep the user's first message natural. Do not require a `会话标题：...` prefix just to satisfy naming.
 - If the user does provide `会话标题：...` or `Conversation title: ...`, prefer that title.
-- The agent MUST propose a short title in its first reply using the form `会话标题：⭐⭐⭐short-task-name` (star count follows the task level) and record it at the top of `prompt.md` (or `notes.md` if the task folder is not created yet).
+- The agent MUST propose a short title in its first reply using the form `会话标题：<N星>short-task-name` (N = 1-5, chosen by task level) and record it at the top of `prompt.md` (or `notes.md` if the task folder is not created yet).
 - Use stars to express importance and task level:
   - `⭐`: quick check, lightweight experiment, one-off test.
   - `⭐⭐`: normal test task.
