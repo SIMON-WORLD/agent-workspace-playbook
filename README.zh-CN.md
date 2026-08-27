@@ -121,6 +121,7 @@ agent-workspace-playbook/
 ├─ 03_inbox/
 ├─ 04_archive/
 ├─ 05_tmp/
+├─ activity/                # Agent 贡献署名记录
 └─ docs/
    ├─ bootstrap-prompt.md
    ├─ codex-usage.md
