@@ -53,7 +53,8 @@ This is a local agent workspace. Claude should keep all task files and outputs i
   - `⭐⭐⭐`: important project task, reusable capability development, formal workflow test.
   - `⭐⭐⭐⭐`: workspace rules, template work, system-level cleanup, migration.
   - `⭐⭐⭐⭐⭐`: long-running mainline, core production workflow, highest-priority project.
-- If the current agent environment provides a thread rename tool and the current thread id is available, apply the suggested title automatically. Otherwise, tell the user they may rename the sidebar title to the suggested one.
+- Star count mapping for auto-naming: `⭐` quick/lightweight, `⭐⭐` normal test, `⭐⭐⭐` important/reusable/formal workflow, `⭐⭐⭐⭐` workspace/system-level, `⭐⭐⭐⭐⭐` long-running mainline/core production. Do not always use 3 stars.
+- If the current agent environment provides a thread rename tool (for example `set_thread_title`) and the current thread id is available, apply the suggested title to the CURRENT session only; never rename a source/sender thread in a delegated subtask. Otherwise, tell the user to rename the sidebar title to the suggested one. If the sidebar normalizes away leading stars, ask the user to rename manually once.
 - Never write to global config just to rename a title.
 - Sidebar titles are only for human recognition. Task folders must still use `01_tasks/YYYY-MM-DD-HHMM-short-task-name/`.
 - Continued work under the same sidebar title should reuse the same task folder unless the user clearly starts a different task.
