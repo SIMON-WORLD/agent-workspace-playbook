@@ -63,6 +63,8 @@ python scripts/build_index.py --check
 python -m unittest discover -s tests
 ```
 
+The repository hygiene check (`scripts/check_repository_hygiene.py`) rejects any nested `.git` directory inside the workspace; the repository root's own `.git` is always allowed.
+
 Codex, Claude, WorkBuddy, and DeepSeek Harness can only become GitHub Contributors after producing real commits that enter the default branch. Do not fake agent identities or add unconfirmed `Co-Authored-By` trailers.
 
 ## Deliverable Entry Points

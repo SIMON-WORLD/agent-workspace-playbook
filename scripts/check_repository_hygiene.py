@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Check for common secrets, local paths, and required workflow files."""
+"""Check for common secrets, local paths, required workflow files, and nested Git repositories."""
 
 from __future__ import annotations
 
 import argparse
+import os
 import pathlib
 import re
 import subprocess
@@ -166,8 +167,46 @@ def check_root_layout(root: pathlib.Path) -> list[str]:
             kind = "directory" if entry.is_dir() else "file"
             issues.append(f"Unexpected root {kind}: {entry.name}")
     return issues
+
+
+def find_nested_git_directories(root: pathlib.Path) -> list[pathlib.Path]:
+    """Return any .git directory/file nested below the repository root.
+
+    The repository root's own .git (a directory or a gitfile pointing at a
+    worktree) represents the active repository and is always allowed. Any
+    nested .git directory is a nested Git repository and is rejected.
+    """
+    nested = []
+    for dirpath, dirnames, filenames in os.walk(root):
+        current = pathlib.Path(dirpath)
+        if current == root:
+            # Root .git is the active repository; skip it and do not descend.
+            dirnames[:] = [name for name in dirnames if name != ".git"]
+            continue
+        if ".git" in dirnames:
+            nested.append(current / ".git")
+        if ".git" in filenames:
+            nested.append(current / ".git")
+        # Never walk inside another repository's internals.
+        dirnames[:] = [name for name in dirnames if name != ".git"]
+    return nested
+
+
+def check_nested_git(root: pathlib.Path) -> list[str]:
+    """Flag any nested Git repository below the repository root."""
+    findings = []
+    for path in find_nested_git_directories(root):
+        findings.append(f"Nested Git repository: {path.relative_to(root).as_posix()}")
+    return findings
+
+
 def run(root: pathlib.Path) -> int:
-    findings = check_required_files(root) + check_content(root) + check_root_layout(root)
+    findings = (
+        check_required_files(root)
+        + check_content(root)
+        + check_root_layout(root)
+        + check_nested_git(root)
+    )
     if findings:
         print("Repository hygiene check failed:")
         for finding in findings:
