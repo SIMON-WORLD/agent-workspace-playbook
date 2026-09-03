@@ -1,4 +1,5 @@
 import pathlib
+import subprocess
 import tempfile
 import unittest
 
@@ -63,6 +64,42 @@ class RepositoryHygieneTests(unittest.TestCase):
             issues = check_repository_hygiene.check_root_layout(root)
             self.assertTrue(any("node_modules" in issue for issue in issues))
             self.assertFalse(any("README.md" in issue for issue in issues))
+
+    def _make_minimal_repo(self, root):
+        subprocess.run(["git", "init"], cwd=root, check=True, capture_output=True)
+        for file_name in check_repository_hygiene.REQUIRED_FILES:
+            path = root / file_name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text("", encoding="utf-8")
+        (root / "AGENTS.md").write_text("", encoding="utf-8")
+
+    def test_nested_git_directories_are_detected(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = pathlib.Path(temp_dir)
+            (root / ".git").mkdir()
+            (root / "sub" / ".git").mkdir(parents=True)
+            nested = check_repository_hygiene.find_nested_git_directories(root)
+            self.assertEqual(nested, [root / "sub" / ".git"])
+
+    def test_only_root_git_is_not_flagged(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = pathlib.Path(temp_dir)
+            (root / ".git").mkdir()
+            nested = check_repository_hygiene.find_nested_git_directories(root)
+            self.assertEqual(nested, [])
+
+    def test_run_rejects_nested_git_repository(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = pathlib.Path(temp_dir)
+            self._make_minimal_repo(root)
+            (root / "scripts" / ".git").mkdir(parents=True)
+            self.assertEqual(check_repository_hygiene.run(root), 1)
+
+    def test_run_passes_with_only_root_git(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = pathlib.Path(temp_dir)
+            self._make_minimal_repo(root)
+            self.assertEqual(check_repository_hygiene.run(root), 0)
 
 if __name__ == "__main__":
     unittest.main()

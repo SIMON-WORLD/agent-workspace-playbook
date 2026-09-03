@@ -63,6 +63,8 @@ python scripts/build_index.py --check
 python -m unittest discover -s tests
 ```
 
+仓库卫生检查（`scripts/check_repository_hygiene.py`）会拒绝工作区内的任何嵌套 `.git` 目录；仓库根目录自身的 `.git` 始终允许。
+
 Codex、Claude、WorkBuddy 和 DeepSeek Harness 只有在各自产生真实提交并进入默认分支后，才可能成为 GitHub Contributors。不要伪造 Agent 身份或随意添加未确认的 `Co-Authored-By`。
 
 ## 交付物入口
